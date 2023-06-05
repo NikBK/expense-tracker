@@ -5,24 +5,29 @@ import { useState } from 'react'
 
 const type = ["Salary", "Bills", "Car", "Clothes", "Food", "grocery", "Travel", "Shopping", "House", "Entertainment", "Phone", "Pets", "Others"]
 
-const Form = () => {
+const Form = ({ setIncomeData, setExpenseData }) => {
     const [inputs, setInputs] = useState({ type: "Income", category: type[0], amount: 0, date: "0000-00-00" });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        var storeData = JSON.parse(localStorage.getItem(`${inputs.type}_data`));
-        if (storeData?.labels) {
-            const localData = storeData;
-            localData?.labels?.push(inputs.category);
-            localData?.datasets[0]?.data?.push(inputs.amount);
-            localData?.datasets[0]?.backgroundColor?.push(randomColor());
-            localStorage.setItem(`${inputs.type}_data`, JSON.stringify(localData));
+
+        const curTypeData = JSON.parse(localStorage.getItem(`${inputs.type}_data`));
+        curTypeData?.labels?.push(inputs.category);
+        curTypeData?.datasets[0]?.data?.push(inputs.amount);
+        curTypeData?.datasets[0]?.backgroundColor?.push(randomColor());
+        localStorage.setItem(`${inputs.type}_data`, JSON.stringify(curTypeData));
+
+        if (inputs.type === "Income") {
+            setIncomeData(curTypeData);
+        }
+        else if (inputs.type === "Expense") {
+            setExpenseData(curTypeData);
         }
         else {
             var data = { labels: [inputs.category], datasets: [{ data: [inputs.amount], backgroundColor: [randomColor()] }] };
             localStorage.setItem(`${inputs.type}_data`, JSON.stringify(data));
         }
-        window.location.reload();
+        // window.location.reload();
     }
 
     return (

@@ -7,25 +7,7 @@ import "./styles.css";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const Tracker = ({ title }) => {
-    const [data, setData] = useState({});
-
-    useEffect(() => {
-        // function checkUserDate() {
-        var storeData = window.localStorage.getItem(`${title}_data`);
-        //console.log("store", storeData);
-        if (storeData) {
-            setData(JSON.parse(storeData));
-        }
-        else {
-            var tempData = { labels: [], datasets: [{ data: [], backgroundColor: [] }] };
-            window.localStorage.setItem(`${title}_data`, JSON.stringify(tempData));
-            setData(tempData);
-        }
-        // }
-        // window.addEventListener("storage", checkUserDate);
-        // checkUserDate();
-    }, [])
+const Tracker = ({ title, data }) => {
 
     return (
         <section className={`tracker-container ${title}_tracker p-5 h-fit mb-4`}>
