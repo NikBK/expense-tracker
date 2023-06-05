@@ -13,10 +13,9 @@ const Tracker = ({ title }) => {
     useEffect(() => {
         // function checkUserDate() {
         var storeData = window.localStorage.getItem(`${title}_data`);
-        console.log("store", storeData);
+        //console.log("store", storeData);
         if (storeData) {
             setData(JSON.parse(storeData));
-
         }
         else {
             var tempData = { labels: [], datasets: [{ data: [], backgroundColor: [] }] };
@@ -36,6 +35,9 @@ const Tracker = ({ title }) => {
             <div className='chart-container'>
                 {data?.labels?.length > 0 && <Doughnut data={data} />}
             </div>
+            <article className='text-center'>
+                Total {title} : {data.datasets && data?.datasets[0]?.data.reduce((accu, cur) => accu += Number(cur), 0) || 0}
+            </article>
         </section>
     )
 }

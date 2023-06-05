@@ -22,6 +22,7 @@ const Form = () => {
             var data = { labels: [inputs.category], datasets: [{ data: [inputs.amount], backgroundColor: [randomColor()] }] };
             localStorage.setItem(`${inputs.type}_data`, JSON.stringify(data));
         }
+        window.location.reload();
     }
 
     return (
