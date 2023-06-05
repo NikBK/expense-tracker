@@ -1,0 +1,8 @@
+.tracker-container,
+.expense-container {
+    background-color: #c8e9f1;
+}
+
+.chart-container {
+    cursor: pointer;
+}
