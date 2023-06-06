@@ -1,6 +1,7 @@
 'use client'
 
 import Form from '@components/Form';
+import Savings from '@components/Savings';
 import Tracker from '@components/Tracker';
 import { useEffect, useState } from 'react';
 
@@ -28,7 +29,7 @@ export default function Home() {
 
 
   return (
-    <main className="w-full h-screen items-center flex justify-around flex-wrap">
+    <main className="w-full my-5 items-center flex justify-around flex-wrap">
       <Form setIncomeData={setIncomeData} setExpenseData={setExpenseData} />
 
       <Tracker
@@ -40,6 +41,11 @@ export default function Home() {
         title="Expense"
         data={expenseData}
       />
+      {
+        incomeData.datasets && incomeData.datasets[0] && incomeData.datasets[0].data &&
+        expenseData.datasets && expenseData.datasets[0] && expenseData.datasets[0].data &&
+        <Savings incomeArray={incomeData.datasets[0].data || [0]} expenseArray={expenseData.datasets[0].data || [0]} />
+      }
     </main>
   )
 }

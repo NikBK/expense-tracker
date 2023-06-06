@@ -31,7 +31,16 @@ const Form = ({ setIncomeData, setExpenseData }) => {
             localStorage.setItem(`${inputs.type}_data`, JSON.stringify(data));
         }
         setInputs(initialState);
-        // window.location.reload();
+    }
+
+    const handleReset = (e) => {
+        e.preventDefault();
+        var tempData = { labels: [], datasets: [{ data: [], backgroundColor: [] }] };
+        setInputs(initialState);
+        setIncomeData(tempData);
+        setExpenseData(tempData);
+        localStorage.setItem(`Income_data`, JSON.stringify(tempData));
+        localStorage.setItem(`Expense_data`, JSON.stringify(tempData));
     }
 
     return (
@@ -64,7 +73,8 @@ const Form = ({ setIncomeData, setExpenseData }) => {
                     <span className='block text-sm font-medium text-slate-700'>Date</span>
                     <input required type='date' value={inputs.date} onChange={(e) => setInputs(prev => ({ ...prev, date: e.target.value }))} className='focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md text-sm shadow-sm mt-1 block w-full px-3 py-2 bg-white border ' />
                 </label>
-                <button type='submit' className='col-span-full bg-sky-400 hover:bg-sky-500 py-1'>Create</button>
+                <button type='submit' className='col-span-full bg-green-400 hover:bg-green-500 py-1'>Create</button>
+                <button type='reset' onClick={handleReset} className='col-span-full bg-sky-400 hover:bg-sky-500 py-1'>Reset</button>
             </form>
         </section>
     )
