@@ -29,12 +29,12 @@ export default function Home() {
 
   return (
     <main className="w-full h-screen items-center flex justify-around flex-wrap">
+      <Form setIncomeData={setIncomeData} setExpenseData={setExpenseData} />
+
       <Tracker
         title="Income"
         data={incomeData}
       />
-
-      <Form setIncomeData={setIncomeData} setExpenseData={setExpenseData} />
 
       <Tracker
         title="Expense"
