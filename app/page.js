@@ -5,8 +5,8 @@ import Tracker from '@components/Tracker';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const [incomeData, setIncomeData] = useState(JSON.parse(localStorage.getItem(`Income_data`)) || {});
-  const [expenseData, setExpenseData] = useState(JSON.parse(localStorage.getItem(`Expense_data`)) || {});
+  const [incomeData, setIncomeData] = useState({});
+  const [expenseData, setExpenseData] = useState({});
 
   useEffect(() => {
     var tempData = { labels: [], datasets: [{ data: [], backgroundColor: [] }] };
@@ -14,9 +14,15 @@ export default function Home() {
       localStorage.setItem(`Income_data`, JSON.stringify(tempData));
       setIncomeData(tempData);
     }
+    else {
+      setIncomeData(JSON.parse(localStorage.getItem(`Income_data`)));
+    }
     if (!localStorage.getItem(`Expense_data`)) {
       localStorage.setItem(`Expense_data`, JSON.stringify(tempData));
       setExpenseData(tempData);
+    }
+    else {
+      setExpenseData(JSON.parse(localStorage.getItem(`Expense_data`)));
     }
   }, [])
 
